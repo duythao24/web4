@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Grid Layout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        .grid-section {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .large-section {
+            background-color: #e9ecef;
+            min-height: 320px;
+        }
+        .small-section {
+            background-color: #f8f9fa;
+            min-height: 150px;
+        }
+        .section-label {
+            font-weight: bold;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <h1 class="mb-4">Bootstrap Grid Layout</h1>
+        <p class="mb-4">Sử dụng Bootstrap để xây dựng lưới theo cấu trúc: một cột lớn bên trái và hai cột nhỏ xếp chồng bên phải.</p>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="grid-section large-section">
+                    <div class="section-label">
+                        Cột lớn bên trái<br>
+                        (col-md-8)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="grid-section small-section">
+                    <div class="section-label">
+                        Cột nhỏ trên<br>
+                        (col-md-4)
+                    </div>
+                </div>
+                <div class="grid-section small-section">
+                    <div class="section-label">
+                        Cột nhỏ dưới<br>
+                        (col-md-4)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h3>Cấu trúc Grid:</h3>
+            <ul>
+                <li><strong>Cột trái:</strong> col-md-8 (chiếm 8/12 = 66.67% chiều rộng)</li>
+                <li><strong>Cột phải:</strong> col-md-4 (chiếm 4/12 = 33.33% chiều rộng)</li>
+                <li><strong>Responsive:</strong> Trên màn hình nhỏ hơn md (768px), các cột sẽ xếp chồng theo chiều dọc</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
