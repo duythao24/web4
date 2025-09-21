@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký sự kiện</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .event-card {
+      border: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover; 
+      transition: transform 0.3s ease;
+    }
+
+    .event-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .event-card-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      position: relative;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+
+    .event-card-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background-color: #d63384;
+      transition: width 0.3s ease;
+    }
+
+    .event-card:hover .event-card-title {
+      color: #d63384;
+    }
+
+    .event-card:hover .event-card-title::after {
+      width: 100%;
+    }
+
+    .badge-custom {
+      font-size: 0.8rem;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      color: #6c757d;
+    }
+    .status-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #212529;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .pagination .page-link {
+      color: #d63384;
+      border-radius: 0 !important;
+      transition: all 0.3s;
+    }
+    .pagination .page-link:hover {
+      background: #f8d7e1;
+      color: #d63384;
+    }
+    .pagination .page-item.active .page-link {
+      background-color: #d63384;
+      border-color: #d63384;
+      color: #fff;
+    }
+  </style>
+    <style>
+
+    .container {
+      max-width: 1400px; 
+    }
+
+    .listbox-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .listbox {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 10px 0;
+    }
+
+    .listbox::-webkit-scrollbar {
+      display: none; 
+    }
+
+    .listbox-item {
+      position: relative;
+      flex: 0 0 auto;
+      min-width: 150px;
+      margin: 0 10px;
+      padding: 15px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      text-align: center;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+
+    .listbox-item::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      background: #0d6efd;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .listbox-item:hover {
+      opacity: 0.7;
+    }
+
+    .listbox-item:hover::after {
+      transform: scaleY(1);
+    }
+
+    .arrow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: none;
+      font-size: 24px;
+      padding: 8px 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .arrow-left {
+      left: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+    }
+
+    .arrow-btn:hover {
+      opacity: 0.6;
+    }
+  </style>
+    <style>
+
+      .logo-img {
+        max-height: 50px;
+        height: auto;
+        width: auto;
+        object-fit: contain;
+      }
+  
+  
+      .no-border,.no-border:focus,
+      .no-border:hover {
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+      
+      .btn-search {
+        border: none;
+        background: transparent;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .custom-btn {
+      background: transparent;
+      border: none;
+      color: #000;
+    }
+    .custom-btn:hover {
+      background-color: #f8f9fa;
+    }
+    .custom-btn:focus {
+      box-shadow: none; 
+    }
+    </style>
+</head>
+<body>
+    
+
+
+    <header class="container-fluid shadow-sm p-2 bg-white fixed-top">
+      <div class="row align-items-center">    
+        <div class="col-2 d-flex justify-content-center p-10">
+          <a href="home.html">
+            <img src="data:image/png;base64,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"
+                      alt="Logo" class="logo-img">
+          </a>
+        </div>
+
+        <div class="col-7">
+          <form class="row">
+            <div class="col-12 bg-body-secondary rounded-4">
+              <div class="row g-2 align-items-center">
+                <!-- Select -->
+                <div class="col-3">
+                  <select class="form-select no-border bg-transparent fw-lighter" data-size="6">
+                    <option value="all">Tất cả địa điểm</option>
+                    <option value="angiang">An Giang</option>
+                    <option value="bariavungtau">Bà Rịa – Vũng Tàu</option>
+                    <option value="bacgiang">Bắc Giang</option>
+                    <option value="backan">Bắc Kạn</option>
+                    <option value="baclieu">Bạc Liêu</option>
+                    <option value="bacninh">Bắc Ninh</option>
+                    <option value="bentre">Bến Tre</option>
+  <option value="binhduong">Bình Dương</option>
+                    <option value="binhdinh">Bình Định</option>
+                    <option value="binhphuoc">Bình Phước</option>
+                    <option value="binhthuan">Bình Thuận</option>
+                    <option value="camau">Cà Mau</option>
+                    <option value="caobang">Cao Bằng</option>
+                    <option value="cantho">Cần Thơ</option>
+                    <option value="danang">Đà Nẵng</option>
+                    <option value="daklak">Đắk Lắk</option>
+                    <option value="daknong">Đắk Nông</option> 
+                    <option value="dienbien">Điện Biên</option>
+                    <option value="dongnai">Đồng Nai</option>
+                    <option value="dongthap">Đồng Tháp</option>
+                    <option value="gialai">Gia Lai</option>
+                    <option value="hagiang">Hà Giang</option>
+                    <option value="hanam">Hà Nam</option>
+                    <option value="hanoi">Hà Nội</option>
+                    <option value="hatinh">Hà Tĩnh</option>
+                    <option value="haiduong">Hải Dương</option>
+                    <option value="haiphong">Hải Phòng</option>
+                    <option value="haugiang">Hậu Giang</option>
+                    <option value="hoabinh">Hòa Bình</option>
+                    <option value="hungyen">Hưng Yên</option>
+                    <option value="khanhhoa">Khánh Hòa</option>
+                    <option value="kiengiang">Kiên Giang</option>
+                    <option value="kontum">Kon Tum</option>
+                    <option value="laichau">Lai Châu</option>
+                    <option value="lamdong">Lâm Đồng</option>
+                    <option value="langson">Lạng Sơn</option>
+                    <option value="laocai">Lào Cai</option>
+                    <option value="longan">Long An</option>
+                    <option value="namdinh">Nam Định</option>
+                    <option value="nghean">Nghệ An</option>
+                    <option value="ninhbinh">Ninh Bình</option>
+                    <option value="ninhthuan">Ninh Thuận</option>
+                    <option value="phutho">Phú Thọ</option>
+                    <option value="phuyen">Phú Yên</option>
+                    <option value="quangbinh">Quảng Bình</option>
+                    <option value="quangnam">Quảng Nam</option>
+                    <option value="quangngai">Quảng Ngãi</option>
+                    <option value="quangninh">Quảng Ninh</option>
+                    <option value="quangtri">Quảng Trị</option>
+                    <option value="soctrang">Sóc Trăng</option>
+                    <option value="sonla">Sơn La</option>
+                    <option value="tayninh">Tây Ninh</option>
+                    <option value="thaibinh">Thái Bình</option>
+                    <option value="thainguyen">Thái Nguyên</option>
+                    <option value="thanhhoa">Thanh Hóa</option>
+  <option value="thuathienhue">Thừa Thiên Huế</option>
+                    <option value="tiengiang">Tiền Giang</option>
+                    <option value="tphcm">TP Hồ Chí Minh</option>
+                    <option value="travinh">Trà Vinh</option>
+                    <option value="tuyenquang">Tuyên Quang</option>
+                    <option value="vinhlong">Vĩnh Long</option>
+                    <option value="vinhphuc">Vĩnh Phúc</option>
+                    <option value="yenbai">Yên Bái</option>
+                  </select>
+                </div>
+                
+                <div class="col-9 d-flex">
+                  <input type="text" class="form-control bg-transparent no-border"
+                        placeholder="Nhập từ khóa...">
+                        <button type="submit" class="btn btn-success  bg-transparent no-border">
+                          <i class="fa fa-search"></i>
+                        </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      
+        <div class="col-3 d-flex justify-content-end gap-2">
+          <div class="d-flex">
+            <select class="form-select no-border bg-transparent fw-medium" data-size="6">
+              <option value="all">Ngôn Ngữ</option>
+              <option value="vi">Tiếng Việt</option>
+              <option value="en">English</option>
+          </select>
+          <a href="home.html" class="btn custom-btn rounded-4 px-5 text-nowrap">Đăng Nhập</a> 
+
+        </div>
+      </div>
+    </header>
+
+  <div style="margin-top: 80px;">
+    <div class="container mt-5" style="margin-top: 150px;"> 
+      <div class="row justify-content-center ">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-lg rounded-2">
+            <div class="card-header bg-warning text-white text-center fs-2 fw-bold">
+              Form Đăng Ký Sự Kiện
+            </div>
+            <div class="card-body p-4">
+              <form id="eventForm">
+                <!-- Họ và tên -->
+                <div class="mb-3">
+                  <label for="hoten" class="form-label fw-semibold">Họ và tên</label>
+                  <input type="text" class="form-control" id="hoten" placeholder="Nhập họ và tên" required>
+                </div>
+  
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label fw-semibold">Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="example@gmail.com" required>
+                </div>
+  
+                <!-- Số điện thoại -->
+                <div class="mb-3">
+                  <label for="sdt" class="form-label fw-semibold">Số điện thoại</label>
+                  <input type="tel" class="form-control" id="sdt" placeholder="0901234567" required>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="sukien" class="form-label fw-semibold">Chọn sự kiện</label>
+                  <select class="form-select" id="sukien" required>
+                    <option value="">-- Chọn sự kiện --</option>
+                    <option value="2025-10-10">Hội thảo Công nghệ 2025</option>
+                    <option value="2025-11-05">Workshop Thiết kế Web</option>
+                    <option value="2025-12-01">Cuộc thi Lập trình Hackathon</option>
+                    <option value="2026-01-15">Triển lãm Văn hóa</option>
+                  </select>
+                </div>
+                
+                <!-- Ngày tham gia -->
+                <div class="mb-3">
+                  <label for="ngay" class="form-label fw-semibold">Ngày tham gia</label>
+                  <input type="date" class="form-control" id="ngay" required>
+                </div>
+  
+                <!-- Ghi chú -->
+                <div class="mb-3">
+                  <label for="ghichu" class="form-label fw-semibold">Ghi chú</label>
+                  <textarea class="form-control" id="ghichu" rows="3" placeholder="Thêm thông tin bổ sung (nếu có)"></textarea>
+                </div>
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="agree" required>
+                  <label class="form-check-label" for="agree">
+                    Tôi đồng ý với 
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ticketModal">
+                      điều khoản tham gia
+                    </a>
+                  </label>
+                </div>
+                <!-- Nút gửi -->  
+                <div class="d-grid">
+                  <button type="button"  class="btn btn-primary btn-lg"  data-bs-toggle="modal" data-bs-target="#confirmModal">Đăng ký ngay</button>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer text-center text-muted">
+              © 2025 Sự kiện Việt Nam
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow-lg rounded-3">
+        
+        <!-- Header -->
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title fw-bold" id="ticketModalLabel">Điều khoản tham gia sự kiện</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        
+        <!-- Body -->
+        <div class="modal-body p-4">
+          <ol class="fs-5">
+            <li>Người tham gia phải đăng ký đầy đủ thông tin cá nhân chính xác.</li>
+            <li>Mỗi người chỉ được đăng ký một lần cho một sự kiện.</li>
+            <li>Người tham gia cần đến đúng giờ theo lịch trình đã công bố.</li>
+            <li>Không được mang theo vật dụng nguy hiểm, chất cấm, hoặc rượu bia.</li>
+            <li>Người tham gia cần tuân thủ sự hướng dẫn của ban tổ chức.</li>
+            <li>Ban tổ chức có quyền sử dụng hình ảnh, video tại sự kiện cho mục đích truyền thông.</li>
+            <li>Không gây rối trật tự, làm ảnh hưởng đến người khác trong sự kiện.</li>
+            <li>Trong trường hợp sự kiện thu phí, vé đã mua sẽ không được hoàn lại.</li>
+            <li>Ban tổ chức có quyền thay đổi chương trình nếu cần thiết và sẽ thông báo trước.</li>
+            <li>Bằng việc tham gia, người tham gia đã đồng ý chấp nhận toàn bộ điều khoản này.</li>
+          </ol>
+        </div>
+        
+        <!-- Footer -->
+        <div class="modal-footer bg-light">
+          <span class="text-muted me-auto">© 2025 Sự kiện Việt Nam</span>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg rounded-3 border-0">
+        
+        <!-- Header -->
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title fw-bold" id="confirmModalLabel">Xác nhận thông tin</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        
+        <!-- Body -->
+        <div class="modal-body fs-5">
+          Bạn có chắc muốn gửi thông tin đăng ký?
+        </div>
+        
+        <!-- Footer -->
+        <div class="modal-footer">
+          <!-- Nút hủy -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <!-- Nút xác nhận -->
+          <button type="submit" class="btn btn-warning text-white fw-bold" form="eventForm">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("eventForm").addEventListener("submit", function(e) {
+      e.preventDefault(); // chặn submit mặc định
+    
+      // Lấy dữ liệu form
+      const hoten = document.getElementById("hoten").value;
+      const email = document.getElementById("email").value;
+      const sdt = document.getElementById("sdt").value;
+      const sukien = document.getElementById("sukien").value;
+      const ngay = document.getElementById("ngay").value;
+      const ghichu = document.getElementById("ghichu").value;
+    
+ 
+      const params = new URLSearchParams({
+        hoten, email, sdt, sukien, ngay, ghichu
+      });
+    
+     
+      document.body.innerHTML = `
+        <div class="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
+          <div class="spinner-border text-primary mb-3" style="width:3rem;height:3rem;" role="status"></div>
+          <div class="fs-5 fw-medium">Đang lấy mã vé...</div>
+        </div>
+      `;
+    
+
+      setTimeout(function() {
+        window.location.href = "ve.html?" + params.toString();
+      }, 3000);
+    });
+    </script>
+    <script>
+      const select = document.getElementById("sukien");
+      const dateInput = document.getElementById("ngay");
+    
+      select.addEventListener("change", function () {
+        if (this.value) {
+          dateInput.value = this.value; // Gán ngày tương ứng
+        } else {
+          dateInput.value = ""; // Nếu chọn lại rỗng thì reset
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+
+</html>
+
